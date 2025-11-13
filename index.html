@@ -7,17 +7,16 @@
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
+    html, body {
       font-family: 'Poppins', sans-serif;
       background: radial-gradient(circle at top left, #ffb3c6, #ffc8dd, #bde0fe);
-      height: 100vh;
-      overflow: hidden;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+      min-height: 100vh;
+      overflow-x: hidden;
       color: #fff;
+      scroll-behavior: smooth;
     }
 
+    /* Envelope start */
     .envelope {
       position: relative;
       width: 220px;
@@ -27,6 +26,10 @@
       box-shadow: 0 10px 30px rgba(0,0,0,0.3);
       cursor: pointer;
       transition: transform 0.4s ease;
+      margin: 200px auto;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
     .envelope:hover { transform: scale(1.05); }
 
@@ -42,50 +45,56 @@
       border-radius: 10px 10px 0 0;
     }
 
+    .btn-open {
+      background: #fff;
+      color: #ff4d6d;
+      font-weight: 700;
+      border: none;
+      border-radius: 20px;
+      padding: 10px 20px;
+      font-size: 1.1em;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+      transition: 0.3s;
+      z-index: 2;
+      position: relative;
+    }
+    .btn-open:hover { transform: scale(1.05); }
+
+    /* Letter section */
     .open-letter {
       display: none;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%,-50%) scale(0.8);
-      opacity: 0;
+      position: relative;
+      margin: 60px auto;
       background: rgba(255,255,255,0.15);
       border-radius: 25px;
-      padding: 40px;
+      padding: 40px 25px;
       text-align: center;
       box-shadow: 0 10px 40px rgba(0,0,0,0.2);
-      width: 85%;
+      width: 90%;
       max-width: 800px;
       animation: fadeIn 1s forwards;
     }
 
     @keyframes fadeIn {
-      to { opacity: 1; transform: translate(-50%,-50%) scale(1); }
-    }
-
-    .letter-content {
-      animation: slideUp 1s ease-out forwards;
-    }
-
-    @keyframes slideUp {
-      from { transform: translateY(40px); opacity: 0; }
-      to { transform: translateY(0); opacity: 1; }
+      from { opacity: 0; transform: scale(0.8); }
+      to { opacity: 1; transform: scale(1); }
     }
 
     h1 {
-      font-size: 2.2em;
+      font-size: 2em;
       margin-bottom: 10px;
       color: #fff;
       text-shadow: 2px 2px 6px rgba(0,0,0,0.3);
     }
 
-    .subtext { color: #fefefe; font-size: 1.1em; margin-bottom: 25px; }
+    .subtext { color: #fefefe; font-size: 1em; margin-bottom: 25px; }
 
     .btn-start {
       background: linear-gradient(90deg, #ff6b6b, #fcbf49);
       border: none;
       padding: 12px 25px;
-      font-size: 1.1em;
+      font-size: 1em;
       font-weight: 600;
       border-radius: 12px;
       cursor: pointer;
@@ -99,29 +108,30 @@
     }
 
     .balloons {
-      position: relative;
       display: flex;
       justify-content: center;
-      gap: 20px;
-      margin-top: 40px;
+      flex-wrap: wrap;
+      gap: 15px;
+      margin-top: 30px;
     }
 
     .balloon {
-      width: 80px;
-      height: 100px;
+      width: 70px;
+      height: 90px;
       border-radius: 50% 50% 45% 45%;
       background: linear-gradient(180deg, #ff6b6b, #ff9aa2);
       display: flex;
       justify-content: center;
       align-items: center;
       font-weight: 700;
-      font-size: 1.3em;
+      font-size: 1.2em;
       color: #222;
       box-shadow: 0 10px 20px rgba(0,0,0,0.2);
       cursor: pointer;
       transition: transform 0.3s ease;
       animation: float 3s ease-in-out infinite;
     }
+
     .balloon:hover { transform: scale(1.1); }
     .balloon:nth-child(2) { background: linear-gradient(180deg, #74c0fc, #a5d8ff); animation-delay: 0.4s; }
     .balloon:nth-child(3) { background: linear-gradient(180deg, #ffd166, #ffe680); animation-delay: 0.8s; }
@@ -133,7 +143,7 @@
 
     .message {
       margin-top: 20px;
-      font-size: 1.2em;
+      font-size: 1.1em;
       min-height: 70px;
       opacity: 0;
       transition: opacity 0.4s ease;
@@ -142,8 +152,8 @@
     .photo-grid {
       margin-top: 40px;
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-      gap: 20px;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 15px;
     }
 
     .photo-card {
@@ -158,7 +168,7 @@
 
     .photo-card img {
       width: 100%;
-      height: 180px;
+      height: 150px;
       object-fit: cover;
     }
 
@@ -166,7 +176,7 @@
       padding: 8px;
       background: rgba(0,0,0,0.3);
       text-align: center;
-      font-size: 0.9em;
+      font-size: 0.85em;
     }
 
     canvas {
@@ -178,23 +188,14 @@
       pointer-events: none;
     }
 
-    .btn-open {
-      background: #fff;
-      color: #ff4d6d;
-      font-weight: 700;
-      border: none;
-      border-radius: 20px;
-      padding: 10px 20px;
-      font-size: 1.1em;
-      position: absolute;
-      top: 160px;
-      left: 50%;
-      transform: translateX(-50%);
-      cursor: pointer;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-      transition: 0.3s;
+    @media (max-width: 600px) {
+      body { padding-bottom: 60px; }
+      h1 { font-size: 1.6em; }
+      .subtext { font-size: 0.9em; }
+      .btn-start { font-size: 0.95em; padding: 10px 20px; }
+      .balloon { width: 60px; height: 80px; font-size: 1em; }
+      .photo-card img { height: 130px; }
     }
-    .btn-open:hover { transform: translateX(-50%) scale(1.05); }
   </style>
 </head>
 <body>
@@ -205,25 +206,23 @@
   </div>
 
   <div class="open-letter" id="letter">
-    <div class="letter-content">
-      <h1>🎉 Selamat Ulang Tahun, <span style="color:#ffd166">Aida Rahma Safitri!</span> 🎂</h1>
-      <div class="subtext">Semoga bahagia, sehat, dan makin bersinar di umur 21 ini ✨</div>
+    <h1>🎉 Selamat Ulang Tahun, <span style="color:#ffd166">Aida Rahma Safitri!</span> 🎂</h1>
+    <div class="subtext">Semoga bahagia, sehat, dan makin bersinar di umur 21 ini ✨</div>
 
-      <div class="message" id="message"></div>
-      <button class="btn-start" id="startBtn">Mulai Pesan Rahasia 💌</button>
+    <div class="message" id="message"></div>
+    <button class="btn-start" id="startBtn">Mulai Pesan Rahasia 💌</button>
 
-      <div class="balloons">
-        <div class="balloon" data-msg="Selamat ulang tahun ke-21, Aida! 🎈">1</div>
-        <div class="balloon" data-msg="Kamu makin dewasa... tapi tetap lucu dan ngeselin 🤭">2</div>
-        <div class="balloon" data-msg="Semoga semua doa kamu dikabulin, kecuali doa punya pacar lain 😜">3</div>
-      </div>
+    <div class="balloons">
+      <div class="balloon" data-msg="Selamat ulang tahun ke-21, Aida! 🎈">1</div>
+      <div class="balloon" data-msg="Kamu makin dewasa... tapi tetap lucu dan ngeselin 🤭">2</div>
+      <div class="balloon" data-msg="Semoga semua doa kamu dikabulin, kecuali doa punya pacar lain 😜">3</div>
+    </div>
 
-      <div class="photo-grid">
-        <div class="photo-card"><img src="1.jpg" alt="Aida"><div class="photo-caption">Cah Ayu 😍</div></div>
-        <div class="photo-card"><img src="2.jpg" alt="Kamu"><div class="photo-caption">Skuter 🤭</div></div>
-        <div class="photo-card"><img src="3.jpg" alt="Kita"><div class="photo-caption">Aidatoesy 💕</div></div>
-        <div class="photo-card"><img src="4.jpg" alt="Moment"><div class="photo-caption">Cantiknyo 🥰</div></div>
-      </div>
+    <div class="photo-grid">
+      <div class="photo-card"><img src="5.jpg" alt="Aida"><div class="photo-caption"> cissss 😍</div></div>
+      <div class="photo-card"><img src="2.jpg" alt="Kamu"><div class="photo-caption">Skuter 🤭</div></div>
+      <div class="photo-card"><img src="3.jpg" alt="Kita"><div class="photo-caption">Aidatoesy 💕</div></div>
+      <div class="photo-card"><img src="4.jpg" alt="Moment"><div class="photo-caption">Cah ayu🥰</div></div>
     </div>
   </div>
 
@@ -262,13 +261,13 @@
     const envelope = document.getElementById('envelope');
     const openBtn = document.getElementById('openBtn');
     const letter = document.getElementById('letter');
-
     openBtn.addEventListener('click', () => {
       envelope.style.transition = "all 0.8s ease";
       envelope.style.transform = "translateY(-200vh)";
       setTimeout(() => {
         envelope.style.display = "none";
         letter.style.display = "block";
+        window.scrollTo({top: 0, behavior: "smooth"});
       }, 700);
     });
 
@@ -290,6 +289,7 @@
         },400);
       } else {
         msgBox.textContent = '🎁 Selesai! Klik balonnya buat lihat pesan lucu lainnya!';
+        msgBox.style.opacity = 1;
       }
     });
 
