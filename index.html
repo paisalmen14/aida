@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>🎉 Selamat Ulang Tahun Aida! 🎂</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: radial-gradient(circle at top left, #ffb3c6, #ffc8dd, #bde0fe);
+      height: 100vh;
+      overflow-y: auto;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #fff;
+    }
+
+    .container {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border-radius: 25px;
+      padding: 40px 50px;
+      text-align: center;
+      position: relative;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+      animation: popIn 1s ease-out;
+      max-width: 800px;
+      margin: 60px auto;
+    }
+
+    @keyframes popIn {
+      from { transform: scale(0.8); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    h1 {
+      font-size: 2.5em;
+      color: #fff;
+      text-shadow: 2px 2px 6px rgba(0,0,0,0.3);
+    }
+
+    .subtext {
+      margin-top: 10px;
+      font-size: 1.1em;
+      color: #fefefe;
+    }
+
+    .balloons {
+      position: absolute;
+      top: -80px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 20px;
+    }
+
+    .balloon {
+      width: 80px;
+      height: 100px;
+      border-radius: 50% 50% 45% 45%;
+      background: linear-gradient(180deg, #ff6b6b, #ff9aa2);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-weight: 700;
+      font-size: 1.4em;
+      color: #222;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+      cursor: pointer;
+      transition: transform 0.3s ease;
+      animation: float 3s ease-in-out infinite;
+    }
+
+    .balloon:nth-child(2) { background: linear-gradient(180deg, #74c0fc, #a5d8ff); animation-delay: 0.4s; }
+    .balloon:nth-child(3) { background: linear-gradient(180deg, #ffd166, #ffe680); animation-delay: 0.8s; }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-15px); }
+    }
+
+    .btn-start {
+      margin-top: 25px;
+      background: linear-gradient(90deg, #ff6b6b, #fcbf49);
+      border: none;
+      padding: 12px 25px;
+      font-size: 1.1em;
+      font-weight: 600;
+      border-radius: 12px;
+      cursor: pointer;
+      color: #fff;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .btn-start:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 20px rgba(255,255,255,0.3);
+    }
+
+    .message {
+      margin-top: 25px;
+      font-size: 1.2em;
+      color: #fff;
+      min-height: 70px;
+      transition: opacity 0.4s;
+    }
+
+    .photo-grid {
+      margin-top: 40px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 20px;
+    }
+
+    .photo-card {
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .photo-card:hover {
+      transform: scale(1.05);
+      box-shadow: 0 8px 25px rgba(255, 255, 255, 0.3);
+    }
+
+    .photo-card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+    }
+
+    .photo-caption {
+      padding: 10px;
+      font-size: 0.9em;
+      background: rgba(0,0,0,0.3);
+      color: #fff;
+    }
+
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="confetti"></canvas>
+  <div class="container">
+    <div class="balloons">
+      <div class="balloon" data-msg="Selamat ulang tahun ke-21, Aida! 🎈">1</div>
+      <div class="balloon" data-msg="Kamu makin dewasa... tapi tetap lucu dan ngeselin 🤭">2</div>
+      <div class="balloon" data-msg="Semoga semua doa kamu dikabulin, kecuali doa punya pacar lain 😜">3</div>
+    </div>
+
+    <h1>🎉 Selamat Ulang Tahun, <span style="color:#ffd166">Aida Rahma Safitri!</span> 🎂</h1>
+    <div class="subtext">Semoga bahagia, sehat, dan makin bersinar di umur 21 ini ✨</div>
+    <div class="message" id="message"></div>
+    <button class="btn-start" id="startBtn">Mulai Kejutannya 💌</button>
+
+    <div class="photo-grid">
+      <div class="photo-card">
+        <img src="1.jpg" alt="Aida">
+        <div class="photo-caption"> Cah Ayu😍</div>
+      </div>
+      <div class="photo-card">
+        <img src="2.jpg" alt="Kamu">
+        <div class="photo-caption"> Skuter 🤭</div>
+      </div>
+      <div class="photo-card">
+        <img src="3.jpg" alt="Kita">
+        <div class="photo-caption"> Aidatoesy 💕</div>
+      </div>
+      <div class="photo-card">
+        <img src="4.jpg" alt="Moment">
+        <div class="photo-caption">cantiknyo 🥰</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Confetti setup
+    const canvas = document.getElementById('confetti');
+    const ctx = canvas.getContext('2d');
+    let W, H, confetti = [];
+    function resize(){ W=canvas.width=window.innerWidth; H=canvas.height=window.innerHeight; }
+    window.addEventListener('resize', resize); resize();
+
+    function makeConfetti(){
+      confetti = [];
+      for(let i=0;i<100;i++){
+        confetti.push({
+          x: Math.random()*W,
+          y: Math.random()*H - H,
+          color: ['#ff6b6b','#ffd166','#74c0fc','#bde0fe'][Math.floor(Math.random()*4)],
+          size: 5 + Math.random()*7,
+          speed: 2 + Math.random()*4
+        });
+      }
+    }
+
+    function drawConfetti(){
+      ctx.clearRect(0,0,W,H);
+      confetti.forEach(p=>{
+        ctx.fillStyle=p.color;
+        ctx.fillRect(p.x,p.y,p.size,p.size);
+        p.y+=p.speed;
+        if(p.y>H)p.y=-10;
+      });
+      requestAnimationFrame(drawConfetti);
+    }
+
+    makeConfetti();
+    drawConfetti();
+
+    // Text animation
+    const messages = [
+      'Hai Aida 👋',
+      'Hari ini dunia lebih cerah karena kamu nambah umur 💫',
+      'Semoga semua hal baik datang dan nempel kayak lem UHU di hatimu 😆',
+      'Selamat ulang tahun yang ke-21! Aku bangga banget punya kamu ❤️'
+    ];
+
+    const msgBox = document.getElementById('message');
+    let index = 0;
+
+    function showMessage() {
+      if(index < messages.length) {
+        msgBox.style.opacity = 0;
+        setTimeout(() => {
+          msgBox.textContent = messages[index++];
+          msgBox.style.opacity = 1;
+        }, 400);
+      } else {
+        msgBox.textContent = '🎁 Selesai! Klik balonnya buat lihat pesan lucu lainnya!';
+      }
+    }
+
+    document.getElementById('startBtn').addEventListener('click', showMessage);
+
+    // Balloon click messages
+    document.querySelectorAll('.balloon').forEach(b => {
+      b.addEventListener('click', () => {
+        const msg = b.getAttribute('data-msg');
+        msgBox.textContent = msg;
+        index = messages.length; // stop looping message
+      });
+    });
+  </script>
+</body>
+</html>
